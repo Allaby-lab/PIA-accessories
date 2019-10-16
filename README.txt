@@ -29,7 +29,7 @@ To run:
 >perl Collate_spreadsheets.pl -f [optional path to fullnamelineage.dmp] -m [optional MEGAN spreadsheet] -o [optional output name] [at least one summary basic]
 
 Output:
--   Single .txt containing all input data
+Single .txt containing all input data
 
 
 Convert_Summary_Basic_or_MEGAN_ex_for_Krona.pl
@@ -41,7 +41,7 @@ To run:
 >perl Convert_Summary_Basic_or_MEGAN_ex_for_Krona.pl [input file] [output file name]
 
 Output:
--   .txt file containing every taxonomic ID in the input file x times, where x is the number of hits.
+.txt file containing every taxonomic ID in the input file x times, where x is the number of hits.
 
 
 Filter_Summary_Basic_or_MEGAN_ex_by_control.pl
@@ -53,7 +53,7 @@ To run:
 >perl Filter_Summary_Basic_or_MEGAN_ex_by_control.pl [control] [sample] [threshold]
 
 Output:
--   [sample]_pruned.txt
+[sample]_pruned.txt
 
 
 Make_post-PIA_FASTA.pl
@@ -66,7 +66,7 @@ To run:
 >perl Make_post-PIA_FASTA_PIA5.pl [original FASTA]
 
 Output:
--   [original FASTA]_postPIA.fasta
+[original FASTA]_postPIA.fasta
 
 
 Accuracy_testing/Extract_GIs_from_FASTA_headers.pl
@@ -77,9 +77,8 @@ Accuracy_testing/Extract_GIs_from_FASTA_headers.pl
 To run:
 >perl Extract_GIs_from_FASTA_header.pl [FASTA]
 
-
 Output:
--   [FASTA basename].GIs.txt
+[FASTA basename].GIs.txt
 
 
 Accuracy_testing/Extract_read_taxon_FASTA_and_IDsnamed.pl
@@ -91,7 +90,7 @@ To run:
 >perl Extract_read_taxon_FASTA_and_IDsnamed.pl [FASTA file] [corresponding IDs.named.txt file]
 
 Output:
--   [FASTA]_read_taxa.txt
+[FASTA]_read_taxa.txt
 
 
 Accuracy_testing/Extract_read_taxon_intersects.pl
@@ -103,7 +102,7 @@ To run:
 >perl Extract_read_taxon_intersects.pl [intersects file] [optional minimum taxonomic diversity score; defaults to 0.1]
 
 Output:
--   [intersects file]_read_taxa.txt
+[intersects file]_read_taxa.txt
 
 
 Accuracy_testing/gi2taxid.sh
@@ -114,7 +113,7 @@ To run:
 >bash gi2taxid.sh [list of GIs] > [output name]
 
 Output:
--   .txt listing corresponding IDs in the same order as the input GIs
+.txt listing corresponding IDs in the same order as the input GIs
 
 
 Accuracy_testing/id2name.pl
@@ -124,9 +123,8 @@ Uses the names.dmp.dbm index file from the PIA to look up scientific names for a
 To use:
 >perl id2name.pl [path to names.dmp.dbm] [list of IDs in a text file]
 
-
 Output:
--   [input file]_named.txt
+[input file]_named.txt
 
 
 Accuracy_testing/Reduce_FASTA_headers_to_identifiers.pl
@@ -138,4 +136,4 @@ To run:
 >perl Reduce_FASTA_headers_to_identifiers.pl [FASTA]
 
 Outputs:
--   [input FASTA basename].reduced.fasta
+[input FASTA basename].reduced.fasta
