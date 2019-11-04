@@ -9,11 +9,12 @@ use Data::Dumper qw(Dumper); # Only used for commented-out test prints.
 ############## Collate_summary_basics.pl #############
 ############## Becky Cribdon, UoW 2013 ###############
 ######################################################
-############## Version 1.1, 2019-10-11 ###############
+############## Version 1.2, 2019-11-04 ###############
 ######################################################
 
-# This script collates Summary_Basic.txt files. It can optionally include a pre-PIA spreadsheet from MEGAN. The MEGAN spreadsheet must be in "taxonID_to_count" format.
-# It uses fullnamelineage.dmp from the NCBI: https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/
+# This script collates Summary_Basic.txt files. It can optionally include a pre-PIA "-ex" spreadsheet from MEGAN. The MEGAN spreadsheet must be in "taxonID_to_count" format.
+# If a summary basic is concatenated, its column in the output file will only be labelled by the first sample listed.
+# The script uses fullnamelineage.dmp from the NCBI: https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/
 # It assumes that file is located at /Reference_files/fullnamelineage.dmp. If it's in another location, use option -f to say where.
 #
 # Run as follows:
@@ -174,14 +175,18 @@ foreach my $summary_basic_filename (@summary_basic_filenames) {
 
     # Save every other line in %incoming_by_ID. This hash resets with each new sample.
     my %incoming_by_ID = ();
-    SAMPLELINE: foreach my $line (readline($summary_basic_filehandle)) {
+    my $fasta_name;
+    
+    foreach my $line (readline($summary_basic_filehandle)) {
         #print "|$line|";
         if (index ($line, '#') != -1) { # If the line contains a hash symbol, which indicates the header line,
-            if (index ($line, 'Input FASTA:') != -1) { # If it's the FASTA line, extract the FASTA name.
-                my @fasta_field = split ('Input FASTA:', $line);
-                my $fasta_name = $fasta_field[1];
-                $fasta_name =~ s/\s+$//; # Remove trailing whitespace of any kind, just in case.
-                $header_master = $header_master . "$fasta_name"; # Add this sample to the master header. Note that it already has a preceding tab.
+            if (index ($line, 'Input FASTA:') != -1) { # If it's the FASTA line,
+                unless (defined $fasta_name) { # And if there is not already a FASTA name (as might happen if this is a concatenated summary basic),
+                    my @fasta_field = split ('Input FASTA:', $line); # Extract the FASTA name.
+                    $fasta_name = $fasta_field[1]; # And save it.
+                    $fasta_name =~ s/\s+$//; # Remove trailing whitespace of any kind, just in case.
+                    $header_master = $header_master . "$fasta_name"; # Add this sample to the master header. Note that it already has a preceding tab.
+                }
             }
             next; # Then move on.
         }
