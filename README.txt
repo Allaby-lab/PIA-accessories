@@ -26,10 +26,19 @@ Collate_summary_basics.pl
 -   It assumes that file is located at /Reference_files/fullnamelineage.dmp. If it's in another location, use option -f to say where.
 
 To run:
->perl Collate_spreadsheets.pl -f [optional path to fullnamelineage.dmp] -m [optional MEGAN spreadsheet] -o [optional output name] [at least one summary basic]
+perl Collate_spreadsheets.pl -f [optional path to fullnamelineage.dmp] -m [optional MEGAN spreadsheet] -o [optional output name] [at least one summary basic]
 
 Output:
 Single .txt containing all input data
+
+
+Merge_summary_basics.pl
+-------------------------
+-   Simply combines Summary_Basic.txt files into a single one.
+-   I use this for combining negative control files before filtering.
+
+To run:
+perl Merge_summary_basics.pl [at least one summary basic]
 
 
 Convert_Summary_Basic_or_MEGAN_ex_for_Krona.pl
@@ -38,7 +47,7 @@ Convert_Summary_Basic_or_MEGAN_ex_for_Krona.pl
 -   The output file contains a single column: #taxID. Each ID represents one hit to that taxon.
 
 To run:
->perl Convert_Summary_Basic_or_MEGAN_ex_for_Krona.pl [input file] [output file name]
+perl Convert_Summary_Basic_or_MEGAN_ex_for_Krona.pl [input file] [output file name]
 
 Output:
 .txt file containing every taxonomic ID in the input file x times, where x is the number of hits.
@@ -50,7 +59,7 @@ Filter_Summary_Basic_or_MEGAN_ex_by_control.pl
 -   Taxa present in the control are not automatically excluded. Instead, this script accepts taxa in the control if the number of control hits is below x % of the number of hits in the sample. x is an option but defaults to 0.02.
 
 To run:
->perl Filter_Summary_Basic_or_MEGAN_ex_by_control.pl [control] [sample] [threshold]
+perl Filter_Summary_Basic_or_MEGAN_ex_by_control.pl [control] [sample] [threshold]
 
 Output:
 [sample]_pruned.txt
@@ -63,7 +72,7 @@ Make_post-PIA_FASTA.pl
 -   Can also re-create the original summary basic if you uncomment sections. This was used for testing.
 
 To run:
->perl Make_post-PIA_FASTA_PIA5.pl [original FASTA]
+perl Make_post-PIA_FASTA_PIA5.pl [original FASTA]
 
 Output:
 [original FASTA]_postPIA.fasta
@@ -75,7 +84,7 @@ Accuracy_testing/Extract_GIs_from_FASTA_headers.pl
 -   Assumes the identifier field is the first one in the FASTA headers. This is the case if you download sequences as a FASTA from the NCBI website.
 
 To run:
->perl Extract_GIs_from_FASTA_header.pl [FASTA]
+perl Extract_GIs_from_FASTA_header.pl [FASTA]
 
 Output:
 [FASTA basename].GIs.txt
@@ -87,7 +96,7 @@ Accuracy_testing/Extract_read_taxon_FASTA_and_IDsnamed.pl
 -   Outputs a file containing every read by GI, followed by its ID and name.
 
 To run:
->perl Extract_read_taxon_FASTA_and_IDsnamed.pl [FASTA file] [corresponding IDs.named.txt file]
+perl Extract_read_taxon_FASTA_and_IDsnamed.pl [FASTA file] [corresponding IDs.named.txt file]
 
 Output:
 [FASTA]_read_taxa.txt
@@ -99,7 +108,7 @@ Accuracy_testing/Extract_read_taxon_intersects.pl
 -   Outputs a file similar to the summary basic, but per read, not per taxon.
 
 To run:
->perl Extract_read_taxon_intersects.pl [intersects file] [optional minimum taxonomic diversity score; defaults to 0.1]
+perl Extract_read_taxon_intersects.pl [intersects file] [optional minimum taxonomic diversity score; defaults to 0.1]
 
 Output:
 [intersects file]_read_taxa.txt
@@ -110,7 +119,7 @@ Accuracy_testing/gi2taxid.sh
 Uses eUtils to look up the taxonomic ID each reference sequence (GI) is assigned to.
 
 To run:
->bash gi2taxid.sh [list of GIs] > [output name]
+bash gi2taxid.sh [list of GIs] > [output name]
 
 Output:
 .txt listing corresponding IDs in the same order as the input GIs
@@ -121,7 +130,7 @@ Accuracy_testing/id2name.pl
 Uses the names.dmp.dbm index file from the PIA to look up scientific names for a list of taxonomic IDs.
 
 To use:
->perl id2name.pl [path to names.dmp.dbm] [list of IDs in a text file]
+perl id2name.pl [path to names.dmp.dbm] [list of IDs in a text file]
 
 Output:
 [input file]_named.txt
@@ -133,7 +142,7 @@ Accuracy_testing/Reduce_FASTA_headers_to_identifiers.pl
 -   Assumes the identifier field is the first one in the FASTA headers. This is the case if you download sequences as a FASTA from the NCBI website.
 
 To run:
->perl Reduce_FASTA_headers_to_identifiers.pl [FASTA]
+perl Reduce_FASTA_headers_to_identifiers.pl [FASTA]
 
 Outputs:
 [input FASTA basename].reduced.fasta
