@@ -14,7 +14,7 @@ use Data::Dumper qw(Dumper); # Only used for commented-out test prints.
 
 # This script collates Summary_Basic.txt files. It can optionally include a pre-PIA "-ex" spreadsheet from MEGAN. The MEGAN spreadsheet must be in "taxonID_to_count" format.
 # If a summary basic is concatenated, its column in the output file will only be labelled by the first sample listed.
-# The script uses fullnamelineage.dmp from the NCBI: https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/
+# The script uses fullnamelineage.dmp from the NCBI. Download a .tar.gz of all NCBI files here and uncompress: https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/
 # It assumes that file is located at /Reference_files/fullnamelineage.dmp. If it's in another location, use option -f to say where.
 #
 # Run as follows:
