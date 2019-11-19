@@ -7,7 +7,7 @@ use Data::Dumper qw(Dumper); # Only used for commented-out test prints.
 
 ######################################################
 ############## Collate_summary_basics.pl #############
-############## Becky Cribdon, UoW 2013 ###############
+################# Becky Cribdon, UoW #################
 ######################################################
 ############## Version 1.2, 2019-11-04 ###############
 ######################################################
@@ -173,8 +173,7 @@ foreach my $summary_basic_filename (@summary_basic_filenames) {
     print "\t$summary_basic_filename\n";
     open (my $summary_basic_filehandle, $summary_basic_filename) or die "Could not open $summary_basic_filename.\n$!\n";
 
-    # Save every other line in %incoming_by_ID. This hash resets with each new sample.
-    my %incoming_by_ID = ();
+    my %incoming_by_ID = (); # The header gets saved separately. Every other line goes in in %incoming_by_ID. This resets with each new sample.
     my $fasta_name;
     
     foreach my $line (readline($summary_basic_filehandle)) {
