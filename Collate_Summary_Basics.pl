@@ -9,13 +9,13 @@ use Data::Dumper qw(Dumper); # Only used for commented-out test prints.
 ############## Collate_summary_basics.pl #############
 ################# Becky Cribdon, UoW #################
 ######################################################
-############## Version 1.2, 2019-11-04 ###############
+############## Version 1.3, 2019-11-26 ###############
 ######################################################
 
 # This script collates Summary_Basic.txt files. It can optionally include a pre-PIA "-ex" spreadsheet from MEGAN. The MEGAN spreadsheet must be in "taxonID_to_count" format.
 # If a summary basic is concatenated, its column in the output file will only be labelled by the first sample listed.
 # The script uses fullnamelineage.dmp from the NCBI. Download a .tar.gz of all NCBI files here and uncompress: https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/
-# It assumes that file is located at /Reference_files/fullnamelineage.dmp. If it's in another location, use option -f to say where.
+# It assumes that file is located in the current directory. If it's in another location, use option -f to say where.
 #
 # Run as follows:
 # >perl Collate_spreadsheets.pl -f [optional path to fullnamelineage.dmp] -m [optional MEGAN spreadsheet] -o [optional output name] [at least one summary basic]
@@ -55,7 +55,7 @@ if ($options{h}) { # If the help option is called, print the help text and exit.
     print "Usage: perl Collate_summary_basics.pl [-fmoh] [summary basics]
 
 Option	Description			Explanation
--f	Full taxonomy file name		Path to fullnamelineage.dmp if it is not at Reference_files/fullnamelineage.dmp. 
+-f	Full taxonomy file name		Path to fullnamelineage.dmp if it is not in the current directory. 
 -m	MEGAN file name			Pre-PIA MEGAN output to collate the summary basics with. Must be in the format taxonID_to_count.
 -o	Output file name                Name of output file. Defaults to 'Collapsed.txt'.
 -h	Help				Print this message.
@@ -67,7 +67,7 @@ Other arguments	    Description
 	exit;
 }
 
-my $full_taxonomy_filename = 'Reference_files/fullnamelineage.dmp'; # Default path to full taxonomy file (assumes that this is the PIA directory).
+my $full_taxonomy_filename = 'fullnamelineage.dmp'; # Default path to full taxonomy file (assumes the current directory).
 if ($options{f}) { # If the full taxonomy option is called, overwrite the default with the option input.
     $full_taxonomy_filename = $options{f};
     print "-f: Using full taxonomy file '$full_taxonomy_filename'\n";
