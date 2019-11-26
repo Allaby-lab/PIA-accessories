@@ -225,7 +225,7 @@ foreach my $summary_basic_filename (@summary_basic_filenames) {
             $line[1] =~ s/^\s+|\s+$//g; # $line[1] is the scientific name. Remove any leading or trailing whitespace.
             $line[2] =~ s/^\s+|\s+$//g; # $line[2] is the taxonomy. Remove any leading or trailing whitespace.
                  
-            my $full_taxonomy = $line[2] . ' ' . $line[1]; # Add scientific name onto the end of the taxonomy to get the full taxonomy. Apart from this, the taxonomy is still in NCBI format.
+            my $full_taxonomy = $line[2] . ' ' . "$line[1];"; # Add scientific name (plus semi-colon) onto the end of the taxonomy to get the full taxonomy. Apart from this, the taxonomy is still in NCBI format.
             
             $data_by_ID{$ID} = "$full_taxonomy\t$line[1]$preceding_empty_columns\t" . $incoming_by_ID{$ID}; # Save the information from here and %incoming_by_ID in %data_by_ID.
             delete $incoming_by_ID{$ID};
