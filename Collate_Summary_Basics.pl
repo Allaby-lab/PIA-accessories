@@ -52,11 +52,11 @@ my %options = ();
 getopts('f:m:o:h', \%options);
 
 if ($options{h}) { # If the help option is called, print the help text and exit.
-    print "Usage: perl Collate_summary_basics.pl [-fmoh] [summary basics]
+    print "Usage: perl Collate_Summary_Basics.pl [-fmoh] [summary basics]
 
 Option	Description			Explanation
 -f	Full taxonomy file name		Path to fullnamelineage.dmp if it is not in the current directory. 
--m	MEGAN file name			Pre-PIA MEGAN output to collate the summary basics with. Must be in the format taxonID_to_count.
+-m	MEGAN ex file name		Optional pre-PIA MEGAN output to collate with. Must be in the format taxonID_to_count.
 -o	Output file name                Name of output file. Defaults to 'Collapsed.txt'.
 -h	Help				Print this message.
 
@@ -171,6 +171,9 @@ if ($megan_filename) { # If there is a MEGAN file to be processed.
 #===========================
 foreach my $summary_basic_filename (@summary_basic_filenames) {
     print "\t$summary_basic_filename\n";
+    
+    $header_master = $header_master . "\t$summary_basic_filename"; # The filename will be the column header.
+    
     open (my $summary_basic_filehandle, $summary_basic_filename) or die "Could not open $summary_basic_filename.\n$!\n";
 
     my %incoming_by_ID = (); # The header gets saved separately. Every other line goes in in %incoming_by_ID. This resets with each new sample.
@@ -179,14 +182,16 @@ foreach my $summary_basic_filename (@summary_basic_filenames) {
     foreach my $line (readline($summary_basic_filehandle)) {
         #print "|$line|";
         if (index ($line, '#') != -1) { # If the line contains a hash symbol, which indicates the header line,
-            if (index ($line, 'Input FASTA:') != -1) { # If it's the FASTA line,
-                unless (defined $fasta_name) { # And if there is not already a FASTA name (as might happen if this is a concatenated summary basic),
-                    my @fasta_field = split ('Input FASTA:', $line); # Extract the FASTA name.
-                    $fasta_name = $fasta_field[1]; # And save it.
-                    $fasta_name =~ s/\s+$//; # Remove trailing whitespace of any kind, just in case.
-                    $header_master = $header_master . "$fasta_name"; # Add this sample to the master header. Note that it already has a preceding tab.
-                }
-            }
+            
+            ## The following code took a sample name out from inside the summary basic. It's based on the original FASTA file name. However, I now find names from the summary basic file names more useful.
+            #if (index ($line, 'Input FASTA:') != -1) { # If it's the FASTA line,
+            #    unless (defined $fasta_name) { # And if there is not already a FASTA name (as might happen if this is a concatenated summary basic),
+            #        my @fasta_field = split ('Input FASTA:', $line); # Extract the FASTA name.
+            #        $fasta_name = $fasta_field[1]; # And save it.
+            #        $fasta_name =~ s/\s+$//; # Remove trailing whitespace of any kind, just in case.
+            #        $header_master = $header_master . "$fasta_name"; # Add this sample to the master header. Note that it already has a preceding tab.
+            #    }
+            #}
             next; # Then move on.
         }
         
