@@ -30,7 +30,7 @@ Other arguments	    Description
 	exit;
 }
 
-print "\n\n";
+print "\n";
 my $threshold = 0.02; # Default path to full taxonomy file (assumes that this is the PIA directory).
 if ($options{t}) { # If the full taxonomy option is called, overwrite the default with the option input.
     $threshold = $options{t};
@@ -139,7 +139,7 @@ foreach my $sample_filename (@sample_filenames) {
             print $output_filehandle "$ID_and_name\t" . $sample_data{$ID_and_name} . "\n";
         }
     } else {
-        print "\n\tNo sample data survived pruning.\n";
+        print "\t\tNo sample data survived pruning.\n";
     }
 }
 
