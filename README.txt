@@ -32,13 +32,13 @@ Output:
 Single .txt containing all input data
 
 
-Merge_summary_basics.pl
+Merge_Summary_Basics.pl
 -------------------------
 -   Simply combines Summary_Basic.txt files into a single one.
 -   I use this for combining negative control files before filtering.
 
 To run:
-perl Merge_summary_basics.pl [at least one summary basic]
+perl Merge_Summary_Basics.pl [at least one summary basic]
 
 
 Convert_Summary_Basic_or_MEGAN_ex_for_Krona.pl
