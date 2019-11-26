@@ -53,16 +53,16 @@ Output:
 .txt file containing every taxonomic ID in the input file x times, where x is the number of hits.
 
 
-Filter_Summary_Basic_or_MEGAN_ex_by_control.pl
+Filter_Summary_Basics_or_MEGAN_exs_by_control.pl
 ----------------------------------------------
--   Filters one PIA Summary Basic or MEGAN "-ex" file by a corresponding negative control. 
+-   Filters at least one PIA Summary Basic or MEGAN "-ex" file by a corresponding negative control. 
 -   Taxa present in the control are not automatically excluded. Instead, this script accepts taxa in the control if the number of control hits is below x % of the number of hits in the sample. x is an option but defaults to 0.02.
 
 To run:
-perl Filter_Summary_Basic_or_MEGAN_ex_by_control.pl [control] [sample] [threshold]
+perl Filter_Summary_Basics_or_MEGAN_exs_by_control.pl -t [optional new threshold] -c [control] [at least one sample] 
 
 Output:
-[sample]_pruned.txt
+[sample]_pruned.txt for each sample
 
 
 Make_post-PIA_FASTA.pl
