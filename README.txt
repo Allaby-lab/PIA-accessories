@@ -19,11 +19,11 @@ PIA prerequisites
 Scripts
 =======
 
-Collate_summary_basics.pl
+Collate_Summary_Basics.pl
 -------------------------
 -   Collates Summary_Basic.txt files. It can optionally include a pre-PIA spreadsheet from MEGAN. The MEGAN spreadsheet must be in "taxonID_to_count" format.
 -   It uses fullnamelineage.dmp from the NCBI: https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/new_taxdump/
--   It assumes that file is located at /Reference_files/fullnamelineage.dmp. If it's in another location, use option -f to say where.
+-   It assumes that file is located in the current directory. If it's in another location, use option -f to say where.
 
 To run:
 perl Collate_spreadsheets.pl -f [optional path to fullnamelineage.dmp] -m [optional MEGAN spreadsheet] -o [optional output name] [at least one summary basic]
