@@ -4,8 +4,7 @@ use strict;
 use warnings;
 use Data::Dumper qw(Dumper);
 
-# For each read in the intersects file that passes the taxonomic diversity check (i.e. would make it to the summary basic), list the result next to the read ID.
-# Creates an output file similar to the summary basic, but per read, not per taxon.
+# For each read in the intersects file that passes the taxonomic diversity check, list the result next to the read ID.
 # > perl Extract_read_taxon_intersects.pl [intersects file] [optional minimum taxonomic diversity score; defaults to 0.1]
 
 my $intersects_filename = $ARGV[0];
@@ -15,7 +14,7 @@ my $min_taxdiv_score = $ARGV[1];
 unless (defined $min_taxdiv_score) {
     $min_taxdiv_score = 0.1; # Default to 0.1, like in the PIA.
 }
-
+print "\nMin taxonomic diversity score: $min_taxdiv_score\n";
 
 my %read_results = (); # Keys are read IDs. Values are intersect names and IDs in the format "ID\tname", like in the summary basic.
 
