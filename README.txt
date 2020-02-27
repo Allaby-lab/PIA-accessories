@@ -2,7 +2,7 @@ Phylogenetic Intersection Analysis accessories
 ==============================================
 Scripts for manipulating PIA outputs
 Allaby lab, University of Warwick
-2019-11-26
+2020-02-27
 
 Phylogenetic intersection analysis (PIA) takes standard-format BLAST output and a corresponding FASTA file. It assigns reads to phylogenetic intersections based on their BLAST hits, assuming that the true taxon will be inside that phylogenetic intersection. It is designed to be robust to the uneven representation of taxa in databases.
 
@@ -63,19 +63,6 @@ perl Filter_Summary_Basics_or_MEGAN_exs_by_control.pl -t [optional new threshold
 
 Output:
 [sample]_pruned.txt for each sample
-
-
-Make_post-PIA_FASTA.pl
-----------------------
--   Decides which reads in the intersects file would pass to the summary basic and looks up their names in the original FASTA. Outputs a subset of that FASTA with just those passing reads.
--   Assumes the normal PIA file structure and the default minimum taxonomic diversity score of 0.1.
--   Can also re-create the original summary basic if you uncomment sections. This was used for testing.
-
-To run:
-perl Make_post-PIA_FASTA_PIA5.pl [original FASTA]
-
-Output:
-[original FASTA]_postPIA.fasta
 
 
 Accuracy_testing/Extract_GIs_from_FASTA_headers.pl
