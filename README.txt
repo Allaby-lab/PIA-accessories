@@ -56,7 +56,7 @@ Output:
 Filter_Summary_Basics_or_MEGAN_exs_by_control.pl
 ----------------------------------------------
 -   Filters at least one PIA Summary Basic or MEGAN "-ex" file by a corresponding negative control. 
--   Taxa present in the control are not automatically excluded. Instead, this script accepts taxa in the control if the number of control hits is below x % of the number of hits in the sample. x is an option but defaults to 0.02.
+-   Taxa present in the control are not automatically excluded. Instead, this script script accepts taxa in the control if the ratio between the number of hits in the control and in the sample (control/sample) is below x. x is an option but defaults to 0.02.
 
 To run:
 perl Filter_Summary_Basics_or_MEGAN_exs_by_control.pl -t [optional new threshold] -c [control] [at least one sample] 
