@@ -41,18 +41,6 @@ To run:
 perl Merge_Summary_Basics.pl [at least one summary basic]
 
 
-Convert_Summary_Basic_or_MEGAN_ex_for_Krona.pl
-----------------------------------------------
--   Converts either a PIA summary basic file or a MEGAN taxonID-to-count file to something that Krona can use to make a taxonomy chart.
--   The output file contains a single column: #taxID. Each ID represents one hit to that taxon.
-
-To run:
-perl Convert_Summary_Basic_or_MEGAN_ex_for_Krona.pl [input file] [output file name]
-
-Output:
-.txt file containing every taxonomic ID in the input file x times, where x is the number of hits.
-
-
 Filter_Summary_Basics_or_MEGAN_exs_by_control.pl
 ----------------------------------------------
 -   Filters at least one PIA Summary Basic or MEGAN "-ex" file by a corresponding negative control. 
