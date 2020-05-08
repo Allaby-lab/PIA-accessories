@@ -120,7 +120,7 @@ foreach my $sample_filename (@sample_filenames) {
         foreach my $ID (keys %control_data) { # Look for control taxa in the sample data.
             if (exists $sample_data{$ID}) {
                 my $count_ratio = $control_data{$ID} / $sample_data{$ID};
-                print "ID: $ID\tControl: $control_data{$ID}\tSample: $sample_data{$ID}\tRatio: $count_ratio\n";
+                #print "ID: $ID\tControl: $control_data{$ID}\tSample: $sample_data{$ID}\tRatio: $count_ratio\n";
                 if ($count_ratio >= $threshold) { delete $sample_data{$ID}; } # If the ratio between counts in the control and sample is at least $threshold, delete this ID from the sample data.
                 
             }
