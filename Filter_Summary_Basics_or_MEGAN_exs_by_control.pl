@@ -5,9 +5,12 @@
     use Getopt::Std;
 	use Data::Dumper qw(Dumper);
 
-# Filters at least one PIA Summary Basic or MEGAN "-ex" file by a corresponding negative control. Taxa present in the control are not automatically excluded. Instead, this script accepts taxa in the control if the number of control hits is below x % of the number of hits in the sample. x is an option but defaults to 0.02.
+# Version 2.1, 2020-05-08
+
+# Filters at least one PIA Summary Basic or MEGAN "-ex" file by a corresponding negative control. Taxa present in the control are not automatically excluded. Instead, this script accepts taxa in the control if the ratio between the number of hits in the control and in the sample (control/sample) is below x. x is an option but defaults to 0.02.
+# Output is printed for all files, though it may be empty.
 # To run:
-# > perl Filter_Summary_Basics_or_MEGAN_exs_by_control.pl -t [optional new threshold] -c [control] [at least one sample] 
+# > perl Filter_Summary_Basics_or_MEGAN_exs_by_control.pl -t [optional threshold] -c [control] [at least one sample] 
 
 
 # Setting up
@@ -18,13 +21,13 @@ getopts('t:c:h', \%options);
 if ($options{h}) { # If the help option is called, print the help text and exit.
     print "Usage: perl Filter_Summary_Basics_or_MEGAN_exs_by_control.pl [-tch] [summary basics or MEGAN ex files]
 
-Option	Description			Explanation
--t	Threshold		Exclusion threshold. Defaults to 0.02%.
--c	Control file name			Control file to filter the samples against.
--h	Help				Print this message.
+Option	Description		Explanation
+-t	Threshold		Exclusion threshold. Defaults to 0.02. Taxa are excluded if (control hits/sample hits) >= this threshold.
+-c	Control file name	Control file to filter the samples against.
+-h	Help			Print this message.
 
-Other arguments	    Description
-[sample files]    At least one summary basic or MEGAN ex file to filter.
+Other arguments     Description
+[sample files]      At least one summary basic or MEGAN ex file to filter.
 
 ";
 	exit;
@@ -111,35 +114,41 @@ foreach my $sample_filename (@sample_filenames) {
     #print "Sample data:\n"; print Dumper \%sample_data; print "\n\n";
     
     
-    # Look for control taxa in the sample data.
-    foreach my $ID (keys %control_data) {
-        if (exists $sample_data{$ID}) {
-            my $count_ratio = $control_data{$ID} / $sample_data{$ID};
-            #print "ID: $ID\tControl: $control_data{$ID}\tSample: $sample_data{$ID}\tRatio: $count_ratio\n";
-            if ($count_ratio >= $threshold) { delete $sample_data{$ID}; } # If the ratio between counts in the control and sample is at least $threshold, delete this ID from the sample data.
+    # If there was any sample data:
+    if (%sample_data) {
+        
+        foreach my $ID (keys %control_data) { # Look for control taxa in the sample data.
+            if (exists $sample_data{$ID}) {
+                my $count_ratio = $control_data{$ID} / $sample_data{$ID};
+                print "ID: $ID\tControl: $control_data{$ID}\tSample: $sample_data{$ID}\tRatio: $count_ratio\n";
+                if ($count_ratio >= $threshold) {
+                    delete $sample_data{$ID};
+                } else { print "\t\tPASS\n";} # If the ratio between counts in the control and sample is at least $threshold, delete this ID from the sample data.
+                
+            }
         }
     }
     
     
-    # Export the pruned sample data
-    #------------------------------
-    if (%sample_data) {
-        my $output_filename = $sample_filename . '_pruned.txt';
-        open (my $output_filehandle, '>', $output_filename) or die "Could not open $output_filename for writing: $!\n";
+    # Export any surviving sample data
+    #---------------------------------
+    my $output_filename = $sample_filename . '_pruned.txt';
+    open (my $output_filehandle, '>', $output_filename) or die "Could not open $output_filename for writing: $!\n";
         
-        print $output_filehandle "# Sample $sample_filename pruned using $control_filename and threshold $threshold\n#\n"; # Print a note detailing the pruning.
+    print $output_filehandle "# Sample $sample_filename pruned using $control_filename and threshold $threshold\n#\n"; # Print a note detailing the pruning.
         
-        if (@sample_header) {
+    if (@sample_header) {
             foreach my $header_line (@sample_header) { # Print the original header if there was one.
                 print $output_filehandle $header_line;
             }
-        }
-        
+    }
+    
+    if (%sample_data) {
         foreach my $ID_and_name (keys %sample_data) {
             print $output_filehandle "$ID_and_name\t" . $sample_data{$ID_and_name} . "\n";
         }
     } else {
-        print "\t\tNo sample data survived pruning.\n";
+        print "\t\tNote: no sample data survived pruning.\n";
     }
 }
 
