@@ -2,7 +2,7 @@ Phylogenetic Intersection Analysis accessories
 ==============================================
 Scripts for manipulating PIA outputs
 Allaby lab, University of Warwick
-2020-05-08
+2020-05-22
 
 Phylogenetic intersection analysis (PIA) takes standard-format BLAST output and a corresponding FASTA file. It assigns reads to phylogenetic intersections based on their BLAST hits, assuming that the true taxon will be inside that phylogenetic intersection. It is designed to be robust to the uneven representation of taxa in databases.
 
@@ -33,7 +33,7 @@ Single .txt containing all input data
 
 
 Merge_Summary_Basics.pl
--------------------------
+-----------------------
 -   Simply combines Summary_Basic.txt files into a single one.
 -   I use this for combining negative control files before filtering.
 
@@ -42,7 +42,7 @@ perl Merge_Summary_Basics.pl [at least one summary basic]
 
 
 Filter_Summary_Basics_or_MEGAN_exs_by_control.pl
-----------------------------------------------
+------------------------------------------------
 -   Filters at least one PIA Summary Basic or MEGAN "-ex" file by a corresponding negative control. 
 -   Taxa present in the control are not automatically excluded. Instead, this script script accepts taxa in the control if the ratio between the number of hits in the control and in the sample (control/sample) is below x. x is an option but defaults to 0.02.
 
@@ -50,7 +50,19 @@ To run:
 perl Filter_Summary_Basics_or_MEGAN_exs_by_control.pl -t [optional new threshold] -c [control] [at least one sample] 
 
 Output:
-[sample]_pruned.txt for each sample
+[input]_pruned.txt for each sample
+
+
+Convert_Summary_Basic_or_MEGAN_ex_for_Krona.pl
+----------------------------------------------
+- Converts either PIA Summary Basics or MEGAN taxonID-to-count -ex files to something that Krona can use to make a taxonomy chart.
+- The output file contains a single column: #taxID. Each ID represents one hit to that taxon.
+
+To run:
+perl Convert_Summary_Basic_or_MEGAN_ex_for_Krona.pl [at least one input file]
+
+Output:
+[input]_forKrona.txt for each input
 
 
 Accuracy_testing/Extract_GIs_from_FASTA_headers.pl
