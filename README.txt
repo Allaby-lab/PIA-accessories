@@ -2,7 +2,7 @@ Phylogenetic Intersection Analysis accessories
 ==============================================
 Scripts for manipulating PIA outputs
 Allaby lab, University of Warwick
-2020-05-22
+2020-06-01
 
 Phylogenetic intersection analysis (PIA) takes standard-format BLAST output and a corresponding FASTA file. It assigns reads to phylogenetic intersections based on their BLAST hits, assuming that the true taxon will be inside that phylogenetic intersection. It is designed to be robust to the uneven representation of taxa in databases.
 
@@ -38,7 +38,7 @@ Merge_Summary_Basics.pl
 -   I use this for combining negative control files before filtering.
 
 To run:
-perl Merge_Summary_Basics.pl [at least one summary basic]
+perl Merge_Summary_Basics.pl [at least one Summary Basic]
 
 
 Filter_Summary_Basics_or_MEGAN_exs_by_control.pl
@@ -53,13 +53,27 @@ Output:
 [input]_pruned.txt for each sample
 
 
-Convert_Summary_Basic_or_MEGAN_ex_for_Krona.pl
+Convert_Summary_Basics_or_Reads_for_MEGAN.pl
+--------------------------------------------
+-   Converts either PIA Summary Basics or Summary Reads to CSV files that can be imported into MEGAN.
+-   To open the CSVs in MEGAN, go to go to "File -> Import -> Text (CSV) Format...". Keep the default format and separator. Tick the classification "Taxonomy" and, if available, tick "Parse accessions ids" and accept the default taxonomy analysis settings.
+-   MEGAN imports Summary Basics CSVs without further analysis. However, it will try to run LCA on Summary Reads CSVs. To effectively turn LCA off, keep the min score at 50, change top percent to 0.001, change min support percent to 0, and keep min support at 1.
+-   Once you've imported a CSV, remember to uncollapse the tree to view fully.
+
+To run:
+perl Convert_Summary_Basics_or_Reads_for_MEGAN.pl [at least one input file]
+
+Output:
+[input]_forMEGAN.csv for each input
+
+
+Convert_Summary_Basics_or_MEGAN_exs_for_Krona.pl
 ----------------------------------------------
 - Converts either PIA Summary Basics or MEGAN taxonID-to-count -ex files to something that Krona can use to make a taxonomy chart.
 - The output file contains a single column: #taxID. Each ID represents one hit to that taxon.
 
 To run:
-perl Convert_Summary_Basic_or_MEGAN_ex_for_Krona.pl [at least one input file]
+perl Convert_Summary_Basics_or_MEGAN_exs_for_Krona.pl [at least one input file]
 
 Output:
 [input]_forKrona.txt for each input
