@@ -2,11 +2,11 @@ Phylogenetic Intersection Analysis accessories
 ==============================================
 Scripts for manipulating PIA outputs
 Allaby lab, University of Warwick
-2020-06-01
+2021-03-10
 
 Phylogenetic intersection analysis (PIA) takes standard-format BLAST output and a corresponding FASTA file. It assigns reads to phylogenetic intersections based on their BLAST hits, assuming that the true taxon will be inside that phylogenetic intersection. It is designed to be robust to the uneven representation of taxa in databases.
 
-The scripts in this collection manipulate PIA outputs. Most will be described in a forthcoming paper. For more information, email r.cribdon@warwick.ac.uk.
+The scripts in this collection manipulate PIA outputs. Most are described in Cribdon et al. (PIA: More Accurate Taxonomic Assignment of Metagenomic Data Demonstrated on sedaDNA From the North Sea, Frontiers in Ecology and Evolution, 2020). For more information, email r.g.allaby@warwick.ac.uk.
 
 
 PIA prerequisites
@@ -51,20 +51,6 @@ perl Filter_Summary_Basics_or_MEGAN_exs_by_control.pl -t [optional new threshold
 
 Output:
 [input]_pruned.txt for each sample
-
-
-Convert_Summary_Basics_or_Reads_for_MEGAN.pl
---------------------------------------------
--   Converts either PIA Summary Basics or Summary Reads to CSV files that can be imported into MEGAN.
--   To open the CSVs in MEGAN, go to go to "File -> Import -> Text (CSV) Format...". Keep the default format and separator. Tick the classification "Taxonomy" and, if available, tick "Parse accessions ids" and accept the default taxonomy analysis settings.
--   MEGAN imports Summary Basics CSVs without further analysis. However, it will try to run LCA on Summary Reads CSVs. To effectively turn LCA off, keep the min score at 50, change top percent to 0.001, change min support percent to 0, and keep min support at 1.
--   Once you've imported a CSV, remember to uncollapse the tree to view fully.
-
-To run:
-perl Convert_Summary_Basics_or_Reads_for_MEGAN.pl [at least one input file]
-
-Output:
-[input]_forMEGAN.csv for each input
 
 
 Convert_Summary_Basics_or_MEGAN_exs_for_Krona.pl
